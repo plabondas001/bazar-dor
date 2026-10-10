@@ -1,4 +1,5 @@
 
+import Link from "next/link";
 import React from "react";
 
 const ProductsCard = ({ products }) => {
@@ -6,7 +7,11 @@ const ProductsCard = ({ products }) => {
   const isDown = products.change?.dir === "down";
 
   return (
-    <div className="rounded-2xl border border-[#dce5dc] bg-white/80 p-4 transition-shadow hover:shadow-md">
+    
+    <Link
+      href={`/product/${encodeURIComponent(products.slug ?? products.id)}`}
+      className="block rounded-2xl border border-[#dce5dc] bg-white/80 p-4 transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#244b59]"
+    >
       {/* Product Info */}
       <div className="mb-4 flex items-center gap-3">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#f0f5f0] text-2xl">
@@ -56,7 +61,7 @@ const ProductsCard = ({ products }) => {
           {products.change?.pct ?? 0}%
         </span>
       </div>
-    </div>
+    </Link>
   );
 };
 

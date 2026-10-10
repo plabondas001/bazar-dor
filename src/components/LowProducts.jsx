@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 const lowProducts = async () => {
@@ -6,7 +7,7 @@ const lowProducts = async () => {
   );
 
   const data = await res.json();
-  return data;
+  return Array.isArray(data) ? data : (data.products ?? data.data ?? []);
 };
 
 
@@ -29,8 +30,8 @@ const LowProducts = async () => {
         {/* Product Cards */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {decreasedProducts.slice(0,6).map((product) => (
+            <Link href={`/product/${encodeURIComponent(product.slug ?? product.id)}`} key={product.id ?? product.slug}>
             <div
-              key={product.id}
               className="rounded-2xl border border-[#dce5dc] bg-white/80 p-4 transition-shadow hover:shadow-md"
             >
               {/* Product Info */}
@@ -72,6 +73,7 @@ const LowProducts = async () => {
                 </span>
               </div>
             </div>
+            </Link>
           ))}
         </div>
 

@@ -1,20 +1,20 @@
-
+import Link from "next/link";
 import React from "react";
 
 const highProducts = async () => {
   const res = await fetch(
-    "https://api.api-store.workers.dev/api/bazardor/products"
+    "https://api.api-store.workers.dev/api/bazardor/products",
   );
 
   const data = await res.json();
-  return data;
+  return Array.isArray(data) ? data : (data.products ?? data.data ?? []);
 };
 
 const HighProducts = async () => {
   const products = await highProducts();
 
   const increasedProducts = products.filter(
-    (product) => product.change?.dir === "up"
+    (product) => product.change?.dir === "up",
   );
 
   return (
@@ -28,9 +28,9 @@ const HighProducts = async () => {
 
         {/* Product Cards */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {increasedProducts.slice(0,6).map((product) => (
+          {increasedProducts.slice(0, 6).map((product) => (
+           <Link href={`/product/${encodeURIComponent(product.slug ?? product.id)}`} key={product.id ?? product.slug}>
             <div
-              key={product.id}
               className="rounded-2xl border border-[#dce5dc] bg-white/80 p-4 transition-shadow hover:shadow-md"
             >
               {/* Product Info */}
@@ -40,27 +40,23 @@ const HighProducts = async () => {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-[#27332c]">
-                    {product.nameBn}
-                  </h3>
+                  <h3 className="font-bold text-[#27332c]">{product.nameBn}</h3>
 
                   <p className="text-xs text-gray-500">
                     প্রতি{" "}
                     {product.unit === "kg"
                       ? "কেজি"
                       : product.unit === "piece"
-                      ? "পিস"
-                      : product.unit === "dozen"
-                      ? "ডজন"
-                      : product.unit}
+                        ? "পিস"
+                        : product.unit === "dozen"
+                          ? "ডজন"
+                          : product.unit}
                   </p>
                 </div>
               </div>
 
               {/* Price */}
-              <p className="text-xs text-gray-600">
-                আজকের দাম
-              </p>
+              <p className="text-xs text-gray-600">আজকের দাম</p>
 
               <div className="flex items-center justify-between gap-2">
                 <p className="text-lg font-bold text-[#27332c]">
@@ -72,6 +68,7 @@ const HighProducts = async () => {
                 </span>
               </div>
             </div>
+           </Link>
           ))}
         </div>
 

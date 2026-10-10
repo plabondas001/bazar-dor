@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 const ProductFilter = ({ products = [], showSort = true }) => {
   const [sortBy, setSortBy] = useState("default");
@@ -53,9 +54,10 @@ const ProductFilter = ({ products = [], showSort = true }) => {
       {/* Product Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {sortedProducts.map((product) => (
-          <div
+          <Link
             key={product.id}
-            className="rounded-2xl border border-[#dce5dc] bg-white/70 p-4 transition-shadow hover:shadow-md"
+            href={`/product/${encodeURIComponent(product.slug ?? product.id)}`}
+            className="block rounded-2xl border border-[#dce5dc] bg-white/70 p-4 transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#244b59]"
           >
             {/* Product Information */}
             <div className="mb-4 flex items-center gap-3">
@@ -106,7 +108,7 @@ const ProductFilter = ({ products = [], showSort = true }) => {
                 {product.change?.pct ?? 0}%
               </span>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
