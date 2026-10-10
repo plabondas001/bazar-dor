@@ -19,7 +19,7 @@ const AllProducts = async () => {
     const products = await getProducts();
 
     return (
-        <main className="min-h-screen bg-[#f0f5f0]">
+        <main id="সব-পণ্য" className="min-h-screen scroll-mt-24 bg-[#f0f5f0]">
             <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
                 <h1 className="mb-2 text-2xl font-bold text-gray-900">সব পণ্য</h1>
                 <ProductFilter products={products} showSort={false} />
