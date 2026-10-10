@@ -1,23 +1,17 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
-const getProduct = async (slug) => {
+const getProduct = async (id) => {
   const res = await fetch(
-    "https://api.api-store.workers.dev/api/bazardor/products",
-    { cache: "no-store" },
+    `https://openapi.programming-hero.com/api/bazardor/products/${encodeURIComponent(id)}`,
   );
 
   if (!res.ok) return null;
 
   const data = await res.json();
 
-  const products = Array.isArray(data)
-    ? data
-    : (data.products ?? data.data ?? []);
-
-  return products.find(
-    (product) => String(product.slug ?? product.id) === slug,
-  );
+  if (Array.isArray(data)) return data[0] ?? null;
+  return data.product ?? data.data ?? data;
 };
 
 const formatPrice = (price) =>

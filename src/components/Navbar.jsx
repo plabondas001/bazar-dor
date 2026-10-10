@@ -3,10 +3,13 @@ import React from "react";
 
 const Navbar = async () => {
   const res = await fetch(
-    "https://api.abcz.workers.dev/api/bazardor/categories"
+    "https://openapi.programming-hero.com/api/bazardor/categories"
   );
 
-  const data = await res.json();
+  const response = await res.json();
+  const data = Array.isArray(response)
+    ? response
+    : (response.categories ?? response.data ?? []);
 
   return (
     <nav aria-label="Product categories" className="w-full border-t">

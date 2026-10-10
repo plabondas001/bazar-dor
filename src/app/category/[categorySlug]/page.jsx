@@ -1,10 +1,9 @@
 import React from "react";
 import ProductFilter from "@/components/ProductFilter";
 
-const getProducts = async () => {
+const getProducts = async (categorySlug) => {
   const res = await fetch(
-    "https://api.api-store.workers.dev/api/bazardor/products",
-    { cache: "no-store" },
+    `https://openapi.programming-hero.com/api/bazardor/products?category=${encodeURIComponent(categorySlug)}`,
   );
 
   const data = await res.json();
@@ -14,15 +13,13 @@ const getProducts = async () => {
 const CategoryProduct = async ({ params }) => {
   const { categorySlug } = await params;
 
-  const response = await getProducts();
+  const response = await getProducts(categorySlug);
 
   const products = Array.isArray(response)
     ? response
     : (response.products ?? response.data ?? []);
 
-  const categoryProducts = products.filter(
-    (product) => product.category === categorySlug,
-  );
+  const categoryProducts = products;
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-6">

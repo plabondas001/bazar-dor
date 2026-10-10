@@ -3,9 +3,12 @@ import MarqueeText from "react-marquee-text";
 import "react-marquee-text/dist/styles.css";
 
 const Marquee = async () => {
-  const res = await fetch("https://api.abcz.workers.dev/api/bazardor/products");
+  const res = await fetch("https://openapi.programming-hero.com/api/bazardor/products");
 
-  const data = await res.json();
+  const response = await res.json();
+  const data = Array.isArray(response)
+    ? response
+    : (response.products ?? response.data ?? []);
 
   return (
     <div className="w-full overflow-hidden border-b bg-white">

@@ -3,8 +3,7 @@ import ProductFilter from "@/components/ProductFilter";
 
 const getProducts = async () => {
     const response = await fetch(
-        "https://api.api-store.workers.dev/api/bazardor/products",
-        { cache: "no-store" },
+        "https://openapi.programming-hero.com/api/bazardor/products",
     );
 
     if (!response.ok) {
