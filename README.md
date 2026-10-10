@@ -19,7 +19,6 @@ BazarDor is a Bengali-language marketplace price tracker that helps people brows
 ## 🧰 Technologies
 
 - **Next.js 16** — App Router and server-rendered pages
-- **React 19** — interactive user interfaces
 - **Tailwind CSS 4** — responsive styling
 - **HeroUI** — form and interface components
 - **Better Auth** — email/password and social authentication
@@ -42,7 +41,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [https://bazar-dor-flame.vercel.app/](https://bazar-dor-flame.vercel.app/) in your browser.
 
 ### Environment variables
 
