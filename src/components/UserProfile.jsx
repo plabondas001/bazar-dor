@@ -3,13 +3,20 @@
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
+import { toast } from "@/lib/toast";
 
 const UserProfile = () => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
 
   const handleSignOut = async () => {
-    await authClient.signOut();
+    try {
+      const { error } = await authClient.signOut();
+      if (error) toast.error(error.message || "Sign out করা যায়নি");
+      else toast.success("সফলভাবে sign out হয়েছে");
+    } catch {
+      toast.error("Sign out করা যায়নি");
+    }
   };
 
   return (

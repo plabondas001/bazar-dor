@@ -1,5 +1,19 @@
 import React from "react";
 import ProductFilter from "@/components/ProductFilter";
+import { notFound } from "next/navigation";
+
+const getCategory = async (categorySlug) => {
+  const response = await fetch(
+    `https://openapi.programming-hero.com/api/bazardor/categories/${encodeURIComponent(categorySlug)}`,
+  );
+  if (!response.ok) return null;
+
+  const data = await response.json();
+  const category = data.category ?? data.data ?? data;
+  return category && (category.id || category.slug || category.name || category.nameBn)
+    ? category
+    : null;
+};
 
 const getProducts = async (categorySlug) => {
   const res = await fetch(
@@ -13,7 +27,11 @@ const getProducts = async (categorySlug) => {
 const CategoryProduct = async ({ params }) => {
   const { categorySlug } = await params;
 
-  const response = await getProducts(categorySlug);
+  const [category, response] = await Promise.all([
+    getCategory(categorySlug),
+    getProducts(categorySlug),
+  ]);
+  if (!category) notFound();
 
   const products = Array.isArray(response)
     ? response

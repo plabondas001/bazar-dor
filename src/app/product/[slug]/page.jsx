@@ -11,7 +11,8 @@ const getProduct = async (id) => {
   const data = await res.json();
 
   if (Array.isArray(data)) return data[0] ?? null;
-  return data.product ?? data.data ?? data;
+  const product = data.product ?? data.data ?? data;
+  return product && (product.id || product.nameBn || product.name) ? product : null;
 };
 
 const formatPrice = (price) =>

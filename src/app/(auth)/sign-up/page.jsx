@@ -13,22 +13,23 @@ import { signIn, signUp } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "@/lib/toast";
 
 const SignUp = () => {
   const router = useRouter();
 
   const handleGoogleSignUp = async () => {
-    const data = await signIn.social({
+    const { error } = await signIn.social({
       provider: "google",
     });
+    if (error) toast.error(error.message || "Google দিয়ে sign up করা যায়নি");
   };
 
   const handleGithubSignUp = async () => {
-    const data = await signIn.social({
+    const { error } = await signIn.social({
       provider: "github",
     });
-
-    console.log(data);
+    if (error) toast.error(error.message || "GitHub দিয়ে sign up করা যায়নি");
   };
 
   const onSubmit = async (e) => {
@@ -40,7 +41,7 @@ const SignUp = () => {
     const confirmPassword = formData.get("confirmPassword");
 
     if (password !== confirmPassword) {
-      alert("পাসওয়ার্ড দুটি একই নয়");
+      toast.error("পাসওয়ার্ড দুটি একই নয়");
       return;
     }
 
@@ -59,9 +60,10 @@ const SignUp = () => {
       callbackURL: "/",
     });
 
-    console.log(signUpData, error);
-
-    if (!error) {
+    if (error) {
+      toast.error(error.message || "অ্যাকাউন্ট তৈরি করা যায়নি");
+    } else if (signUpData) {
+      toast.success("সফলভাবে sign up হয়েছে");
       router.push("/");
     }
   };

@@ -12,20 +12,35 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { clearQueuedToast, queueToast, toast } from "@/lib/toast";
 
 const SignIn = () => {
   const handleGoogleSignUp = async () => {
-    const data = await signIn.social({
-      provider: "google",
-    });
+    queueToast("Google দিয়ে সফলভাবে sign in হয়েছে");
+    try {
+      const { error } = await signIn.social({ provider: "google", callbackURL: "/" });
+      if (error) {
+        clearQueuedToast();
+        toast.error(error.message || "Google দিয়ে sign in করা যায়নি");
+      }
+    } catch {
+      clearQueuedToast();
+      toast.error("Google দিয়ে sign in করা যায়নি");
+    }
   };
 
   const handleGithubSignUp = async () => {
-    const data = await signIn.social({
-      provider: "github",
-    });
-
-    console.log(data);
+    queueToast("GitHub দিয়ে সফলভাবে sign in হয়েছে");
+    try {
+      const { error } = await signIn.social({ provider: "github", callbackURL: "/" });
+      if (error) {
+        clearQueuedToast();
+        toast.error(error.message || "GitHub দিয়ে sign in করা যায়নি");
+      }
+    } catch {
+      clearQueuedToast();
+      toast.error("GitHub দিয়ে sign in করা যায়নি");
+    }
   };
 
   const onSubmit = async (e) => {
@@ -40,11 +55,19 @@ const SignIn = () => {
       data[key] = value.toString();
     });
 
-    const { data: signUpData, error } = await signIn.email({
+    queueToast("সফলভাবে sign in হয়েছে");
+    const { error } = await signIn.email({
       email: data.email,
       password: data.password,
       callbackURL: "/",
     });
+    if (error) {
+      clearQueuedToast();
+      toast.error(error.message || "Sign in করা যায়নি। তথ্যগুলো যাচাই করুন।");
+    } else {
+      clearQueuedToast();
+      toast.success("সফলভাবে sign in হয়েছে");
+    }
   };
 
   return (
