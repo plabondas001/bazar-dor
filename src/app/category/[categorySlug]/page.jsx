@@ -27,7 +27,7 @@ const CategoryProduct = async ({ params }) => {
   return (
     <main className="mx-auto max-w-6xl px-4 py-6">
       {/* Category Header */}
-      <div className="mb-6 flex items-center gap-4 rounded-2xl border border-gray-200 bg-white/80 p-5">
+      <div className="mb-6 flex items-center gap-3 rounded-2xl border border-gray-200 bg-white/80 p-4 sm:gap-4 sm:p-5">
         <span className="text-4xl">
           {categoryProducts[0]?.categoryIcon || "🛒"}
         </span>

@@ -126,7 +126,7 @@ const ProductDetailsPage = async ({ params }) => {
         </nav>
 
         {/* Product Information */}
-        <section className="mb-6 flex flex-col justify-between gap-6 rounded-2xl border border-[#dce5dc] bg-[#fbfdfb] p-5 sm:flex-row sm:items-center sm:p-6">
+        <section className="mb-6 flex flex-col justify-between gap-6 rounded-2xl border border-[#dce5dc] bg-[#fbfdfb] p-4 sm:p-5 lg:flex-row lg:items-center lg:p-6">
           <div className="flex min-w-0 items-center gap-4">
             <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-[#f0f5f0] text-4xl sm:h-20 sm:w-20">
               {product.image || product.categoryIcon || "🛒"}
@@ -196,7 +196,7 @@ const ProductDetailsPage = async ({ params }) => {
             দামের সারসংক্ষেপ
           </h2>
 
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {/* Lowest Price */}
             <div className="rounded-2xl border border-[#dce5dc] p-5">
               <p className="text-sm text-[#68746b]">সর্বনিম্ন দাম</p>

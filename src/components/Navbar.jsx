@@ -9,23 +9,23 @@ const Navbar = async () => {
   const data = await res.json();
 
   return (
-    <nav className="w-full border-t">
-      <div className="mx-auto max-w-7xl px-4">
+    <nav aria-label="Product categories" className="w-full border-t">
+      <div className="mx-auto max-w-7xl px-2 sm:px-4">
         <div
           className="
-            flex items-center gap-1
+            flex items-center gap-1 sm:gap-2
             overflow-x-auto
-            py-3
+            py-2 sm:py-3
             scrollbar-hide
             whitespace-nowrap
           "
         >
           {data.map((cate) => (
             <Link key={cate.id} href={`/category/${cate.slug}`}>
-            <div
+            <span
               className="
                 flex items-center
-                px-4 py-2
+                shrink-0 px-3 py-2 sm:px-4
                 text-sm
                 font-medium
                 cursor-pointer
@@ -34,7 +34,7 @@ const Navbar = async () => {
               <span className="text-lg">{cate?.icon}</span>
 
               <h1>{cate?.nameBn}</h1>
-            </div>
+            </span>
             </Link>
           ))}
         </div>
