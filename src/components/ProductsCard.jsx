@@ -1,6 +1,6 @@
 
-import Link from "next/link";
 import React from "react";
+import ProductAccessLink from "./ProductAccessLink";
 
 const ProductsCard = ({ products }) => {
   const isUp = products.change?.dir === "up";
@@ -8,8 +8,8 @@ const ProductsCard = ({ products }) => {
 
   return (
     
-    <Link
-      href={`/product/${encodeURIComponent(products.slug ?? products.id)}`}
+    <ProductAccessLink
+      product={products}
       className="block rounded-2xl border border-[#dce5dc] bg-white/80 p-4 transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#244b59]"
     >
       {/* Product Info */}
@@ -61,7 +61,7 @@ const ProductsCard = ({ products }) => {
           {products.change?.pct ?? 0}%
         </span>
       </div>
-    </Link>
+    </ProductAccessLink>
   );
 };
 

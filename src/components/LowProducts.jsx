@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import React from 'react';
+import ProductAccessLink from "./ProductAccessLink";
 
 const lowProducts = async () => {
   const res = await fetch(
@@ -30,7 +30,7 @@ const LowProducts = async () => {
         {/* Product Cards */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {decreasedProducts.slice(0,6).map((product) => (
-            <Link href={`/product/${encodeURIComponent(product.slug ?? product.id)}`} key={product.id ?? product.slug}>
+            <ProductAccessLink product={product} key={product.id ?? product.slug} className="block rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#244b59]">
             <div
               className="rounded-2xl border border-[#dce5dc] bg-white/80 p-4 transition-shadow hover:shadow-md"
             >
@@ -73,7 +73,7 @@ const LowProducts = async () => {
                 </span>
               </div>
             </div>
-            </Link>
+            </ProductAccessLink>
           ))}
         </div>
 
