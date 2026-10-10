@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Navbar = async () => {
@@ -20,8 +21,8 @@ const Navbar = async () => {
           "
         >
           {data.map((cate) => (
+            <Link key={cate.id} href={`/category/${cate.slug}`}>
             <div
-              key={cate.id}
               className="
                 flex items-center
                 px-4 py-2
@@ -30,10 +31,11 @@ const Navbar = async () => {
                 cursor-pointer
               "
             >
-              <span className="text-lg">{cate.icon}</span>
+              <span className="text-lg">{cate?.icon}</span>
 
-              <h1>{cate.nameBn}</h1>
+              <h1>{cate?.nameBn}</h1>
             </div>
+            </Link>
           ))}
         </div>
       </div>
